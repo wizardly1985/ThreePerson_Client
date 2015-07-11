@@ -47,7 +47,7 @@
         </activity>
         <activity android:name="wizard.threeperson.activity.RestaurantHomePageActivity" >
         </activity>
-        <!--  -->
+        <!-- 其他的界面 -->
         <activity android:name="wizard.threeperson.activity.RestaurantCurrentOrderActivity" >
         </activity>
         <activity android:name="wizard.threeperson.activity.RestaurantAllTradeActivity" >
