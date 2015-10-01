@@ -3,77 +3,97 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-     <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp" >
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/ic_launcher" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_margin="5dip" >
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="34dp"
-                android:layout_toRightOf="@+id/imageView1"
-                android:text="菜单。。。。" />
+        <wizard.threeperson.views.RemoteImageView
+            android:id="@+id/iv"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/textView1"
-                android:layout_alignParentBottom="true"
-                android:text="价格：。。。" />
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tvFood"
+            android:layout_alignParentBottom="true"
+            android:text="价格：。。。" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="35dp"
-                android:layout_toRightOf="@+id/textView2"
-                android:text="订单状态" />
-            
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="35dp"
+            android:layout_toRightOf="@+id/tvPrice"
+            android:text="订单状态" />
 
+        <TextView
+            android:id="@+id/tvFood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/iv"
+            android:text="菜单。。。。" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:background="#33AAAAAA" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dip"
         android:orientation="horizontal" >
-        <LinearLayout 
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical" >
+
             <TextView
+                android:id="@+id/tvRestName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="店名"></TextView>
+                android:text="店名" >
+            </TextView>
+
             <TextView
+                android:id="@+id/tvRestPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="电话"></TextView>
+                android:text="电话" >
+            </TextView>
+
             <TextView
+                android:id="@+id/tvRestAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="地址"></TextView>
+                android:text="地址" >
+            </TextView>
         </LinearLayout>
-       
     </LinearLayout>
-   <TextView 
-       android:id="@+id/deliverer"
-       android:layout_width="fill_parent"
-       android:layout_height="wrap_content"
-       android:gravity="center"
-       android:text="配送员信息"></TextView>"
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:background="#33AAAAAA" />
+
+    <TextView
+        android:id="@+id/deliverer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="配送员信息" >
+    </TextView>
 
 </LinearLayout>

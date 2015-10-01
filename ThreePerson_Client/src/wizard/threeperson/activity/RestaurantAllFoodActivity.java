@@ -3,6 +3,8 @@ package wizard.threeperson.activity;
 import wizard.threeperson.adapter.RestaurantAllFoodAdapter;
 import wizard.threeperson.client.R;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -12,6 +14,13 @@ import android.widget.ListView;
  */
 public class RestaurantAllFoodActivity extends Activity {
 	private ListView lv;
+	
+	public static void launch(Context c) {
+		Intent intent = new Intent(c, RestaurantAllFoodActivity.class);
+		c.startActivity(intent);
+
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

@@ -13,7 +13,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent" >
 
-             <ImageView
+             <wizard.threeperson.views.RemoteImageView
                  android:id="@+id/ivBackground"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
@@ -21,31 +21,6 @@
                  android:layout_alignParentTop="true"
                  android:layout_marginTop="34dp"
                  android:src="@android:drawable/alert_dark_frame" />
-              <ImageView
-                 android:id="@+id/ivhead"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_alignRight="@+id/tvPhone"
-                 android:layout_below="@+id/ivBackground"
-                 android:layout_marginRight="14dp"
-                 android:src="@drawable/ic_launcher" />
-
-             <TextView
-                 android:id="@+id/tvPhone"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_alignParentBottom="true"
-                 android:layout_alignParentLeft="true"
-                 android:layout_marginBottom="18dp"
-                 android:text="联系方式" />
-
-             <TextView
-                 android:id="@+id/tvAddress"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_above="@+id/tvPhone"
-                 android:layout_alignParentLeft="true"
-                 android:text="地址" />
 
             
 
@@ -57,6 +32,32 @@
                  android:layout_marginLeft="21dp"
                  android:layout_toRightOf="@+id/ivhead"
                  android:text="配送员：。。。。。。。" />
+
+             <TextView
+                 android:id="@+id/tvPhone"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentBottom="true"
+                 android:layout_alignParentLeft="true"
+                 android:layout_marginBottom="20dp"
+                 android:layout_marginLeft="42dp"
+                 android:text="联系方式" />
+
+             <TextView
+                 android:id="@+id/tvAddress"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_above="@+id/tvPhone"
+                 android:layout_alignLeft="@+id/tvPhone"
+                 android:text="地址" />
+
+             <wizard.threeperson.views.RemoteImageView
+                 android:id="@+id/ivhead"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignLeft="@+id/tvAddress"
+                 android:layout_below="@+id/ivBackground"
+                 android:src="@drawable/ic_launcher" />
 
          </RelativeLayout>
 

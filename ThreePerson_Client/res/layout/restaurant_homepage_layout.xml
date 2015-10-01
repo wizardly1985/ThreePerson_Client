@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <ImageView
+            <wizard.threeperson.views.RemoteImageView
                 android:id="@+id/ivBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
                 android:layout_marginTop="34dp"
                 android:src="@android:drawable/alert_dark_frame" />
 
-            <ImageView
+            <wizard.threeperson.views.RemoteImageView
                 android:id="@+id/ivHead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

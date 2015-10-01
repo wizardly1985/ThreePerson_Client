@@ -17,7 +17,7 @@ public class DelivererHomePageActivity extends Activity {
 	TextView tvPhone;
 	TextView tvAddress;
 	
-	private DelivererUser user = (DelivererUser) App.getInstance().getUser();
+//	private DelivererUser user = (DelivererUser) App.getInstance().getUser();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -33,8 +33,8 @@ public class DelivererHomePageActivity extends Activity {
 		tvAddress = (TextView) findViewById(R.id.tvAddress);
 		tvPhone = (TextView) findViewById(R.id.tvPhone);
 		
-		tvUsername.setText(user.getUsername());
-		tvAddress.setText(user.getAddress());
-		tvPhone.setText(user.getPhone());
+//		tvUsername.setText(user.getUsername());
+//		tvAddress.setText(user.getAddress());
+//		tvPhone.setText(user.getPhone());
 	}
 }

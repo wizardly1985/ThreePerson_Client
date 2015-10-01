@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" >
 
-    <ImageView
+    <wizard.threeperson.views.RemoteImageView
         android:layout_width="100dip"
         android:layout_height="100dip" />
 

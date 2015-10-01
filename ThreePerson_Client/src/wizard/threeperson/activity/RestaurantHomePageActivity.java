@@ -16,7 +16,7 @@ public class RestaurantHomePageActivity extends Activity {
 	TextView tvPhone;
 	TextView tvAddress;
 	
-	private RestaurantUser user = (RestaurantUser) App.getInstance().getUser();
+//	private RestaurantUser user = (RestaurantUser) App.getInstance().getUser();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +33,9 @@ public class RestaurantHomePageActivity extends Activity {
 		tvPhone = (TextView) findViewById(R.id.tvPhone);
 		tvAddress = (TextView) findViewById(R.id.tvAddress);
 		
-		tvUsername.setText(user.getUsername());
-		tvPhone.setText(user.getPhone());
-		tvAddress.setText(user.getAddress());
+//		tvUsername.setText(user.getUsername());
+//		tvPhone.setText(user.getPhone());
+//		tvAddress.setText(user.getAddress());
 		
 	}
 }

@@ -7,11 +7,15 @@ import wizard.threeperson.api.ApiImpl;
 import wizard.threeperson.client.R;
 import wizard.threeperson.entity.GuestUser;
 import android.app.Activity;
+import android.app.LauncherActivity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class GuestRegisterActivity extends Activity {
 	private EditText etName;
@@ -30,10 +34,15 @@ public class GuestRegisterActivity extends Activity {
 	
 	private ApiImpl api = (ApiImpl) App.getInstance().getApi();
 
+	public static void launch(Context context){
+		Intent i= new Intent(context, GuestRegisterActivity.class);
+		context.startActivity(i);
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		setTitle("客户注册");
 		setContentView(R.layout.guest_register_layout);
 		findViewById();
 
@@ -76,8 +85,11 @@ public class GuestRegisterActivity extends Activity {
 				filluser();
 				if(api.register(user)== true){
 					System.out.println("注册成功，界面跳转");
+					Intent intent = new Intent(GuestRegisterActivity.this, GuestHomePageActivity.class);
+					startActivity(intent);
 				}else{
 					System.out.println("注册失败，提示信息！！！");
+					Toast.makeText(GuestRegisterActivity.this, "注册失败！", 3000);
 				}
 			}
 		});

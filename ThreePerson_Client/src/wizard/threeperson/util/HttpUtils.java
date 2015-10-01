@@ -23,55 +23,47 @@ import android.util.Log;
 public class HttpUtils {
 	static String result;
 
-	public static String sendPostMessage(String path,String values) {
-		System.out.println("doInBackground");
-		
-		new AsyncTask<String, Void, String>() {
+	public static String sendPostMessage(String path, String values) {
+		System.out.println("HttpUtils_-->sendPostMessage");
 
-			@Override
-			protected String doInBackground(String... params) {
-				try {
-					Log.v("wiard_ly", params[0]);
-					Log.v("wiard_ly", params[1]);
-					URL url = new URL(params[0]);
-					HttpURLConnection connection = (HttpURLConnection) url
-							.openConnection();
+		try {
 
-					connection.setDoInput(true);
-					connection.setDoOutput(true);
-					connection.setRequestMethod("POST");
+			URL url = new URL(path);
+			HttpURLConnection connection = (HttpURLConnection) url
+					.openConnection();
 
-					OutputStreamWriter osw = new OutputStreamWriter(
-							connection.getOutputStream(), "utf-8");
-					BufferedWriter bw = new BufferedWriter(osw);
-					bw.write(params[1]);
-					bw.flush();
+			connection.setDoInput(true);
+			connection.setDoOutput(true);
+			connection.setRequestMethod("POST");
 
-					InputStream is = connection.getInputStream();
-					InputStreamReader isr = new InputStreamReader(is, "utf-8");
-					BufferedReader br = new BufferedReader(isr);
-					String line;
-					while ((line = br.readLine()) != null) {
-						System.out.println(line);
-						HttpUtils.this.result = line;
-					}
-					br.close();
-					isr.close();
-					is.close();
-				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-				return HttpUtils.this.result;
+			if (values != null) {
+				OutputStreamWriter osw = new OutputStreamWriter(
+						connection.getOutputStream(), "utf-8");
+				BufferedWriter bw = new BufferedWriter(osw);
+				bw.write(values);
+				bw.flush();
 			}
+			
+			InputStream is = connection.getInputStream();
+			InputStreamReader isr = new InputStreamReader(is, "utf-8");
+			BufferedReader br = new BufferedReader(isr);
+			String line;
+			while ((line = br.readLine()) != null) {
+				System.out.println(line);
+				result = line;
+			}
+			br.close();
+			isr.close();
+			is.close();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		}.execute(path,values);
-		return null;
-
+		return result;
 
 	}
 }

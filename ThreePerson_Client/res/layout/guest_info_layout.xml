@@ -9,7 +9,7 @@
         android:layout_height="match_parent" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -18,84 +18,84 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tvAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textView1"
+            android:layout_below="@+id/tvName"
             android:layout_marginLeft="23dp"
             android:layout_marginTop="15dp"
             android:text="地址"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tvPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView2"
-            android:layout_below="@+id/textView2"
+            android:layout_alignLeft="@+id/tvAddress"
+            android:layout_below="@+id/tvAddress"
             android:layout_marginTop="17dp"
             android:text="电话"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tvAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView3"
-            android:layout_below="@+id/textView3"
+            android:layout_alignLeft="@+id/tvPhone"
+            android:layout_below="@+id/tvPhone"
             android:layout_marginTop="14dp"
             android:text="账户"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/tvTrade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView4"
-            android:layout_below="@+id/textView4"
+            android:layout_alignLeft="@+id/tvAccount"
+            android:layout_below="@+id/tvAccount"
             android:layout_marginTop="16dp"
             android:text="交易次数"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/tvTurnover"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView5"
+            android:layout_alignBottom="@+id/tvTrade"
             android:layout_alignParentRight="true"
             android:layout_marginRight="43dp"
-            android:text="账户余额"
+            android:text="交易额"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/tvType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView5"
-            android:layout_below="@+id/textView5"
+            android:layout_alignLeft="@+id/tvTurnover"
+            android:layout_below="@+id/tvTurnover"
             android:layout_marginTop="18dp"
             android:text="客户类型"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/tvActive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView7"
-            android:layout_alignBottom="@+id/textView7"
-            android:layout_alignLeft="@+id/textView6"
-            android:text="Medium Text"
+            android:layout_alignBaseline="@+id/tvType"
+            android:layout_alignBottom="@+id/tvType"
+            android:layout_alignLeft="@+id/tvTrade"
+            android:text="活跃度"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/tvPriority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView7"
-            android:layout_below="@+id/textView7"
+            android:layout_alignLeft="@+id/tvActive"
+            android:layout_below="@+id/tvActive"
             android:layout_marginTop="20dp"
-            android:text="Medium Text"
+            android:text="优先级"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </RelativeLayout>

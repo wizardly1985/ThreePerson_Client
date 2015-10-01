@@ -3,13 +3,11 @@ package wizard.threeperson.activity;
 import wizard.threeperson.App;
 import wizard.threeperson.api.ApiImpl;
 import wizard.threeperson.client.R;
-import wizard.threeperson.dao.impl.UserDaoImpl;
-import wizard.threeperson.entity.AbsUser;
-import wizard.threeperson.entity.DelivererUser;
 import wizard.threeperson.entity.GuestUser;
-import wizard.threeperson.entity.RestaurantUser;
 import android.app.Activity;
-import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +15,7 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 	RadioGroup radioGroup = null;
@@ -25,19 +24,24 @@ public class LoginActivity extends Activity {
 	Button btnRegister = null;
 	Button btnLogin = null;
 	
-	AbsUser user = new RestaurantUser(null, null);
+	GuestUser user = App.getInstance().getUser();
 	ApiImpl api = (ApiImpl) App.getInstance().getApi();
 
+	public static void launch(Context context){
+		Intent i= new Intent(context, LoginActivity.class);
+		context.startActivity(i);
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		setTitle("µÇÂ½");
 		setContentView(R.layout.login_layout);
 		findViewById();
 	}
 
 	private void findViewById() {
-		radioGroup =(RadioGroup) findViewById(R.id.radioGroupRole);
 		etUsername =(TextView) findViewById(R.id.etUsername);
 		etPassword = (TextView) findViewById(R.id.etPassword);
 		btnRegister = (Button) findViewById(R.id.btnRegister);
@@ -56,34 +60,12 @@ public class LoginActivity extends Activity {
 				register();
 			}
 		});
-		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			
-			@Override
-			public void onCheckedChanged(RadioGroup arg0, int arg1) {
-				System.out.println("ËÍ²ÍÏµÍ³¡ª¡ª¡ª¡ª>>ÓÃ»§Ñ¡Ôñ:"+arg1);
-				
-				switch (arg1) {
-				
-				case R.id.radio1:
-					LoginActivity.this.user =new GuestUser(null, null);
-					break;
-					
-				case R.id.radio0:
-					break;
-					
-				case R.id.radio2:
-					LoginActivity.this.user =new DelivererUser(null, null);
-					break;
-
-				default:
-					break;
-				}
-			}
-		});
 	}
 
 	protected void register() {
 		System.out.println("ËÍ²ÍÏµÍ³¡ª¡ª¡ª¡ª>>×¢²á");		
+		Intent intent = new Intent(this, GuestRegisterActivity.class);
+		startActivity(intent);
 		
 	}
 
@@ -91,6 +73,25 @@ public class LoginActivity extends Activity {
 		System.out.println("ËÍ²ÍÏµÍ³¡ª¡ª¡ª¡ª>>µÇÂ½");
 		user.setUsername(etUsername.getText().toString());
 		user.setPassword(etPassword.getText().toString());
-		api.login(user);
+		System.out.println(user.getPassword());
+		new LoginTask().execute(user);
+		//api.login(user);
+	}
+	
+	class LoginTask extends AsyncTask<GuestUser, Void, GuestUser>{
+
+		@Override
+		protected GuestUser doInBackground(GuestUser... user) {
+			return (GuestUser) api.login(user[0]);
+		}
+		@Override
+		protected void onPostExecute(GuestUser user) {
+			super.onPostExecute(user);
+			Toast.makeText(LoginActivity.this, "µÇÂ½", 3000).show();
+			System.out.println("--->>"+user.getUsername());
+			App.getInstance().setUser(user);
+			GuestHomePageActivity.launch(LoginActivity.this);
+			finish();
+		}
 	}
 }

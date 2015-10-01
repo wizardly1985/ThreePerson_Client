@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" >
 
-    <ImageView
+    <wizard.threeperson.views.RemoteImageView
+        android:id="@+id/iv"
         android:layout_width="100dip"
         android:layout_height="100dip" />
 
@@ -14,31 +15,31 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="菜名" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="价格" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tvAssess"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="评价" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tvBookTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="下单时间" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/tvAchieveTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="完成时间" />

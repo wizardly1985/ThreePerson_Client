@@ -35,6 +35,7 @@ public class DelivererRegisterActivty extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setTitle("ÓÃ»§×¢²á");
 		setContentView(R.layout.deliverer_register_layout);
 		findViewById();
 	}

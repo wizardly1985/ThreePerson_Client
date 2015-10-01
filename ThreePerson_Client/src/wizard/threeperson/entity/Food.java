@@ -20,7 +20,7 @@ public class Food implements Serializable {
 	private int assessment;
 	private int recommendation;
 
-	public String toJSONString(Food food) {
+	public String toJSONString() {
 		JSONObject jsonObject = new JSONObject();
 		try {
 			jsonObject.put("name", getName());

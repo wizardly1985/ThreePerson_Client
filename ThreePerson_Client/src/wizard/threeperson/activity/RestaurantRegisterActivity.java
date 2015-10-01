@@ -8,6 +8,8 @@ import wizard.threeperson.client.R;
 import wizard.threeperson.client.R.id;
 import wizard.threeperson.entity.RestaurantUser;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +29,12 @@ public class RestaurantRegisterActivity extends Activity {
 
 	RestaurantUser user;
 	ApiImpl api = (ApiImpl) App.getInstance().getApi();
+	
+	public static void launch(Context c) {
+		Intent intent = new Intent(c, RestaurantRegisterActivity.class);
+		c.startActivity(intent);
+
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

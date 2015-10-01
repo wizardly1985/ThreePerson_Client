@@ -12,18 +12,15 @@ public class GuestUser extends AbsUser {
 	 */
 	private static final long serialVersionUID = 155380339268692566L;
 	private Date registerDate = new Date(0, 0, 0);
-	private String address = "0";
+	private String address = "9999";
 	private String gps = "0";
-	private String phone = "0";
+	private String phone = "888";
 	private String account = "0";
 	private String type = "0";
 	private String menu_trade = "0";
 	private int trade;
-
 	private double turnover;
-
 	private int activty;
-
 	private int priority;
 
 	public GuestUser(String username, String password) {
@@ -127,9 +124,9 @@ public class GuestUser extends AbsUser {
 	public AbsUser fromJSONString(String jSONString) {
 		try {
 			JSONObject jsonObject = new JSONObject(jSONString);
-			this.setUsername(jsonObject.getString("name"));
+			this.setUsername(jsonObject.getString("username"));
 			this.setPassword(jsonObject.getString("password"));
-			this.setRegisterDate(new Date(jsonObject.getString("registerDate")));
+//			this.setRegisterDate(new Date(jsonObject.getString("registerDate")));
 			this.setAddress(jsonObject.getString("address"));
 			this.setGps(jsonObject.getString("gps"));
 			this.setPhone(jsonObject.getString("phone"));

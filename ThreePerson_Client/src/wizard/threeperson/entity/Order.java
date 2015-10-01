@@ -1,19 +1,20 @@
 package wizard.threeperson.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Order implements Serializable{
-	private Date book_time;
-	private Date achieve_time;
+public class Order implements Serializable {
+	private Timestamp book_time;
+	private Timestamp achieve_time;
 	private String source;
 	private String destination;
 	private int priority;
 	private String status;
-	private String menu;
+	private String foodName;
 	private double price;
 	private double traffic_cost;
 	private double total_cost;
@@ -31,13 +32,20 @@ public class Order implements Serializable{
 	private String deliverer_gps;
 	private String deliverer_phone;
 	private String deliverer_account;
-	
+
+	// 订单的四种状态
+	public static final String PUBLISH = "已发布";
+	public static final String ACCEPTED = "已接受";
+	public static final String DELIVERING = "配送中";
+	public static final String COMPLETED = "已完成";
+
 	/**
 	 * 把food对象序列化
+	 * 
 	 * @param food
 	 * @return
 	 */
-	public String toJSONString(Order order) {
+	public String toJSONString() {
 		JSONObject jsonObject = new JSONObject();
 		try {
 			jsonObject.put("book_time", getBook_time());
@@ -46,7 +54,7 @@ public class Order implements Serializable{
 			jsonObject.put("destination", getDestination());
 			jsonObject.put("priority", getPriority());
 			jsonObject.put("status", getStatus());
-			jsonObject.put("menu", getMenu());
+			jsonObject.put("menu", getFoodName());
 			jsonObject.put("price", getPrice());
 			jsonObject.put("traffic_cost", getTraffic_cost());
 			jsonObject.put("total_cost", getTotal_cost());
@@ -75,6 +83,7 @@ public class Order implements Serializable{
 
 	/**
 	 * 反序列化
+	 * 
 	 * @param jsonString
 	 * @return
 	 */
@@ -82,21 +91,24 @@ public class Order implements Serializable{
 	public Order fromJSONString(String jsonString) {
 		try {
 			JSONObject jsonObject = new JSONObject(jsonString);
-			this.setBook_time(new Date(jsonObject.getString("book_time")));
-			this.setAchieve_time(new Date(jsonObject.getString("achieve_time")));
+			this.setBook_time(toTimestamp(jsonObject.getString("book_time")));
+			this.setAchieve_time(toTimestamp(jsonObject
+					.getString("achieve_time")));
 			this.setSource(jsonObject.getString("source"));
 			this.setDestination(jsonObject.getString("destination"));
 			this.setPriority(jsonObject.getInt("priority"));
 			this.setStatus(jsonObject.getString("status"));
-			this.setMenu(jsonObject.getString("menu"));
+			this.setFoodName(jsonObject.getString("menu"));
 			this.setPrice(jsonObject.getDouble("price"));
 			this.setTraffic_cost(jsonObject.getDouble("traffic_cost"));
 			this.setTotal_cost(jsonObject.getDouble("total_cost"));
 			this.setRestaurant_name(jsonObject.getString("restaurant_name"));
-			this.setRestaurant_address(jsonObject.getString("restaurant_address"));
+			this.setRestaurant_address(jsonObject
+					.getString("restaurant_address"));
 			this.setRestaurant_gps(jsonObject.getString("restaurant_gps"));
 			this.setRestaurant_phone(jsonObject.getString("restaurant_phone"));
-			this.setRestaurant_account(jsonObject.getString("restaurant_account"));
+			this.setRestaurant_account(jsonObject
+					.getString("restaurant_account"));
 			this.setGuest_name(jsonObject.getString("guest_name"));
 			this.setGuest_address(jsonObject.getString("guest_address"));
 			this.setGuest_gps(jsonObject.getString("guest_gps"));
@@ -112,150 +124,222 @@ public class Order implements Serializable{
 		}
 		return this;
 	}
-	
-	public Date getBook_time() {
+
+	public Timestamp getBook_time() {
 		return book_time;
 	}
-	public Date getAchieve_time() {
+
+	public Timestamp getAchieve_time() {
 		return achieve_time;
 	}
+
 	public String getSource() {
 		return source;
 	}
+
 	public String getDestination() {
 		return destination;
 	}
+
 	public int getPriority() {
 		return priority;
 	}
+
 	public String getStatus() {
 		return status;
 	}
-	public String getMenu() {
-		return menu;
+
+	public String getFoodName() {
+		return foodName;
 	}
+
 	public double getPrice() {
 		return price;
 	}
+
 	public double getTraffic_cost() {
 		return traffic_cost;
 	}
+
 	public double getTotal_cost() {
 		return total_cost;
 	}
+
 	public String getRestaurant_name() {
 		return restaurant_name;
 	}
+
 	public String getRestaurant_address() {
 		return restaurant_address;
 	}
+
 	public String getRestaurant_gps() {
 		return restaurant_gps;
 	}
+
 	public String getRestaurant_phone() {
 		return restaurant_phone;
 	}
+
 	public String getRestaurant_account() {
 		return restaurant_account;
 	}
+
 	public String getGuest_name() {
 		return guest_name;
 	}
+
 	public String getGuest_address() {
 		return guest_address;
 	}
+
 	public String getGuest_gps() {
 		return guest_gps;
 	}
+
 	public String getGuest_phone() {
 		return guest_phone;
 	}
+
 	public String getGuest_account() {
 		return guest_account;
 	}
+
 	public String getDeliverer_name() {
 		return deliverer_name;
 	}
+
 	public String getDeliverer_gps() {
 		return deliverer_gps;
 	}
+
 	public String getDeliverer_phone() {
 		return deliverer_phone;
 	}
+
 	public String getDeliverer_account() {
 		return deliverer_account;
 	}
-	public void setBook_time(Date book_time) {
+
+	public void setBook_time(Timestamp book_time) {
 		this.book_time = book_time;
 	}
-	public void setAchieve_time(Date achieve_time) {
+
+	public void setAchieve_time(Timestamp achieve_time) {
 		this.achieve_time = achieve_time;
 	}
+
 	public void setSource(String source) {
 		this.source = source;
 	}
+
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
+
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public void setMenu(String menu) {
-		this.menu = menu;
+
+	public void setFoodName(String menu) {
+		this.foodName = menu;
 	}
+
 	public void setPrice(double price) {
 		this.price = price;
 	}
+
 	public void setTraffic_cost(double traffic_cost) {
 		this.traffic_cost = traffic_cost;
 	}
+
 	public void setTotal_cost(double total_cost) {
 		this.total_cost = total_cost;
 	}
+
 	public void setRestaurant_name(String restaurant_name) {
 		this.restaurant_name = restaurant_name;
 	}
+
 	public void setRestaurant_address(String restaurant_address) {
 		this.restaurant_address = restaurant_address;
 	}
+
 	public void setRestaurant_gps(String restaurant_gps) {
 		this.restaurant_gps = restaurant_gps;
 	}
+
 	public void setRestaurant_phone(String restaurant_phone) {
 		this.restaurant_phone = restaurant_phone;
 	}
+
 	public void setRestaurant_account(String restaurant_account) {
 		this.restaurant_account = restaurant_account;
 	}
+
 	public void setGuest_name(String guest_name) {
 		this.guest_name = guest_name;
 	}
+
 	public void setGuest_address(String guest_address) {
 		this.guest_address = guest_address;
 	}
+
 	public void setGuest_gps(String guest_gps) {
 		this.guest_gps = guest_gps;
 	}
+
 	public void setGuest_phone(String guest_phone) {
 		this.guest_phone = guest_phone;
 	}
+
 	public void setGuest_account(String guest_account) {
 		this.guest_account = guest_account;
 	}
+
 	public void setDeliverer_name(String deliverer_name) {
 		this.deliverer_name = deliverer_name;
 	}
+
 	public void setDeliverer_gps(String deliverer_gps) {
 		this.deliverer_gps = deliverer_gps;
 	}
+
 	public void setDeliverer_phone(String deliverer_phone) {
 		this.deliverer_phone = deliverer_phone;
 	}
+
 	public void setDeliverer_account(String deliverer_account) {
 		this.deliverer_account = deliverer_account;
 	}
-	
+
+	@SuppressWarnings("deprecation")
+	private Timestamp toTimestamp(String str) {
+		JSONObject jsonObject = null;
+		try {
+			jsonObject = new JSONObject(str);
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		Timestamp timestamp = null;
+		try {
+			timestamp = new Timestamp(jsonObject.getInt("year"),
+					jsonObject.getInt("month"), jsonObject.getInt("date"),
+					jsonObject.getInt("hours"), jsonObject.getInt("minutes"),
+					jsonObject.getInt("seconds"), jsonObject.getInt("nanos"));
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return timestamp;
+	}
 }

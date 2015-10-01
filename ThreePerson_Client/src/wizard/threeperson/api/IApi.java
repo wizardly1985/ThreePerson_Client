@@ -14,7 +14,7 @@ public interface IApi {
 	 * @param user 创建用户，传入
 	 * @return  查询服务器端的数据库，如果正确，侧返回absUser对象，否侧NULL
 	 */
-	public AbsUser login(AbsUser user);
+	public GuestUser login(GuestUser user);
 	
 	/**
 	 * 注册用户
@@ -56,25 +56,25 @@ public interface IApi {
 	 *  三种角色可通过这个调用查询当前的订单
 	 * @param user
 	 */
-	public void currentOrder(AbsUser user);
+	public String currentOrder(int from, int scale);
 	
 	/**
 	 * 三种角色通过这个调用查询所有的交易记录
 	 * @param user
 	 */
-	public void allTrade(AbsUser user);
+	public String allTrade(int from, int scale);
 	
 	/**
 	 * 食客通过这个调用选择菜品
 	 * @param user
 	 */
-	public void chooseFood(GuestUser user);
+	public String chooseFood(int from, int scale);
 	
 	/**
 	 * 食客提交一个订单
 	 * @param user
 	 */
-	public void publishOrder(GuestUser user);
+	public void publishOrder(String jsonString);
 	
 	/**
 	 * 配送员接受一个订单
@@ -87,4 +87,5 @@ public interface IApi {
 	 * @param user
 	 */
 	public void finishOrder(DelivererUser user);
+
 }
