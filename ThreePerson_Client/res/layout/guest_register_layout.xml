@@ -2,113 +2,90 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/tvName"
+        <wizard.threeperson.views.RemoteImageView
+            android:id="@+id/ivBackground"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5px"
-            android:text="用户名："
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/tvPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15px"
-            android:text="密码："
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/tvConfirmPW"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15px"
-            android:text="确认密码："
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/tvAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15px"
-            android:text="送货地址："
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/tvPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15px"
-            android:text="联系电话："
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/tvAccount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15px"
-            android:hint="请填写支付宝账户"
-            android:text="支付账户："
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/tvType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15px"
-            android:text="客户类型："
-            android:textSize="20dp" />
+            android:layout_height="match_parent"
+            android:src="@drawable/a2j" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="7"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="2"
         android:orientation="vertical" >
 
-        <EditText
-            android:id="@+id/etName"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </EditText>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
 
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:orientation="vertical" >
 
-        <EditText
-            android:id="@+id/etConfirmPW"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <wizard.threeperson.views.RemoteImageView
+                    android:id="@+id/ivHead"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/a2j" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入用户名" >
+                </EditText>
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入用户密码" />
+
+                <EditText
+                    android:id="@+id/etConfirmPW"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请确认用户名密码" />
+            </LinearLayout>
+        </LinearLayout>
 
         <EditText
             android:id="@+id/etAddress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="请输入常用地址" />
 
         <EditText
             android:id="@+id/etPhone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="请输入联系电话" />
 
         <EditText
             android:id="@+id/etAccount"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:id="@+id/etType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="请输入支付宝帐户" />
 
         <Button
             android:id="@+id/btnSubmit"

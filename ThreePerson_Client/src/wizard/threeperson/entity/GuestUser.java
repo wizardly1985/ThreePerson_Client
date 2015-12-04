@@ -22,6 +22,24 @@ public class GuestUser extends AbsUser {
 	private double turnover;
 	private int activty;
 	private int priority;
+	private String headImage;
+	private String backgroundImage;
+
+	public String getHeadImage() {
+		return headImage;
+	}
+
+	public void setHeadImage(String headImage) {
+		this.headImage = headImage;
+	}
+
+	public String getBackgroundImage() {
+		return backgroundImage;
+	}
+
+	public void setBackgroundImage(String backgroundImage) {
+		this.backgroundImage = backgroundImage;
+	}
 
 	public GuestUser(String username, String password) {
 		super(username, password, "guest");
@@ -126,16 +144,20 @@ public class GuestUser extends AbsUser {
 			JSONObject jsonObject = new JSONObject(jSONString);
 			this.setUsername(jsonObject.getString("username"));
 			this.setPassword(jsonObject.getString("password"));
-//			this.setRegisterDate(new Date(jsonObject.getString("registerDate")));
+			// this.setRegisterDate(new
+			// Date(jsonObject.getString("registerDate")));
 			this.setAddress(jsonObject.getString("address"));
-			this.setGps(jsonObject.getString("gps"));
+			if (jsonObject.isNull("gps") == false)
+				this.setGps(jsonObject.getString("gps"));
 			this.setPhone(jsonObject.getString("phone"));
 			this.setAccount(jsonObject.getString("account"));
 			this.setMenu_trade(jsonObject.getString("menu_table"));
 			this.setTrade(jsonObject.getInt("trade"));
 			this.setActivty(jsonObject.getInt("activity"));
 			this.setPriority(jsonObject.getInt("priority"));
-			this.setTurnover(jsonObject.getDouble("password"));
+			this.setTurnover(jsonObject.getDouble("turnover"));
+			this.setHeadImage(jsonObject.getString("headimage"));
+			this.setBackgroundImage(jsonObject.getString("background"));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -164,6 +186,8 @@ public class GuestUser extends AbsUser {
 			jsonObject.put("turnover", getTurnover());
 			jsonObject.put("activity", getActivty());
 			jsonObject.put("priority", getPriority());
+			jsonObject.put("headimage", getHeadImage());
+			jsonObject.put("background", getBackgroundImage());
 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

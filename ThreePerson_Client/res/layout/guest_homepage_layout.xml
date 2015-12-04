@@ -23,15 +23,35 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="100dip" >
+                android:layout_height="match_parent"
+                android:gravity="bottom" >
+
+                <TextView
+                    android:id="@+id/tvUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/tvPhone"
+                    android:layout_centerHorizontal="true"
+                    android:drawableLeft="@drawable/maintab_third_normal"
+                    android:text="客户：X X X X"
+                    android:textSize="20sp" />
+
+                <wizard.threeperson.views.RemoteImageView
+                    android:id="@+id/ivHead"
+                    android:layout_width="66dp"
+                    android:layout_height="70dp"
+                    android:background="#999999"
+                    android:layout_margin="3dip"
+                    android:layout_alignBottom="@+id/tvUsername"
+                    android:layout_toLeftOf="@+id/tvUsername"
+                    android:src="@drawable/head_default" />
 
                 <TextView
                     android:id="@+id/tvPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
+                    android:layout_above="@+id/tvAddress"
                     android:layout_alignLeft="@+id/ivHead"
-                    android:layout_below="@+id/tvUsername"
                     android:drawableLeft="@drawable/maintab_second_normal"
                     android:text="联系方式" />
 
@@ -40,28 +60,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_alignLeft="@+id/tvPhone"
-                    android:layout_below="@+id/tvPhone"
+                    android:layout_alignParentBottom="true"
                     android:drawableLeft="@drawable/tab_trend_normal"
                     android:gravity="bottom"
                     android:text="地址" />
-
-                <wizard.threeperson.views.RemoteImageView
-                    android:id="@+id/ivHead"
-                    android:layout_width="66dp"
-                    android:layout_height="70dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:src="@drawable/head_default" />
-
-                <TextView
-                    android:id="@+id/tvUsername"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/ivHead"
-                    android:layout_toRightOf="@+id/ivHead"
-                    android:drawableLeft="@drawable/maintab_third_normal"
-                    android:text="客户：X X X X"
-                    android:textSize="20sp" />
 
             </RelativeLayout>
         </FrameLayout>
@@ -76,6 +78,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="6dip"
+            android:layout_marginBottom="6dip"
             android:orientation="horizontal" >
 
             <LinearLayout
@@ -252,7 +256,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="14dp"
                     android:layout_toRightOf="@+id/imageView1"
-                    android:text="进入选菜"
+                    android:text="当前订单"
                     android:textSize="18sp" />
             </RelativeLayout>
 
@@ -286,13 +290,14 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="14dp"
                     android:layout_toRightOf="@+id/imageView1"
-                    android:text="私家菜馆"
+                    android:text="交易记录"
                     android:textSize="18sp" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/newFood"
+                android:id="@+id/btnRestaurant"
                 android:layout_width="match_parent"
+                android:layout_marginTop="15dip"
                 android:layout_height="wrap_content" >
 
                 <ImageView
@@ -320,43 +325,11 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="14dp"
                     android:layout_toRightOf="@+id/imageView1"
-                    android:text="当前订单"
+                    android:text="注册私厨"
                     android:textSize="18sp" />
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/checkMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="18dip"
-                    android:layout_height="18dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="14dp"
-                    android:src="@drawable/ic_action_calendar_month" />
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="28dp"
-                    android:src="@drawable/mm_submenu_normal" />
-
-                <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="14dp"
-                    android:layout_toRightOf="@+id/imageView1"
-                    android:text="历史订单"
-                    android:textSize="18sp" />
-            </RelativeLayout>
+            
         </LinearLayout>
     </LinearLayout>
 

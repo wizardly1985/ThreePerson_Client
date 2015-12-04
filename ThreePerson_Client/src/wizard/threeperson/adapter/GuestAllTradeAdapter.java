@@ -3,6 +3,14 @@ package wizard.threeperson.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
+import wizard.threeperson.Constants;
 import wizard.threeperson.client.R;
 import wizard.threeperson.entity.Food;
 import wizard.threeperson.entity.Trade;
@@ -19,10 +27,27 @@ public class GuestAllTradeAdapter extends BaseAdapter {
 
 	private Context mContext;
 	private List<Trade> trades = new ArrayList<Trade>();
-
+	DisplayImageOptions options;
+	protected ImageLoader imageLoader = ImageLoader.getInstance();
+	
 	public GuestAllTradeAdapter(Context mContext) {
 		super();
 		this.mContext = mContext;
+		
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+				mContext).threadPriority(Thread.NORM_PRIORITY - 2)
+				.denyCacheImageMultipleSizesInMemory()
+				.discCacheFileNameGenerator(new Md5FileNameGenerator())
+				.tasksProcessingOrder(QueueProcessingType.LIFO).enableLogging() 
+				.build();
+		// Initialize ImageLoader with configuration.
+		ImageLoader.getInstance().init(config);
+		options = new DisplayImageOptions.Builder()
+				.showStubImage(R.drawable.mydefault)
+				.showImageForEmptyUri(R.drawable.mydefault)
+				.showImageOnFail(R.drawable.mydefault).cacheInMemory()
+				.cacheOnDisc().displayer(new RoundedBitmapDisplayer(20))
+				.build();
 	}
 
 	@Override
@@ -66,7 +91,11 @@ public class GuestAllTradeAdapter extends BaseAdapter {
 //			tvAssess.setText("评价:"+trade.get);
 			tvBookTime.setText("下单时间:"+trade.getBook_time().toString());
 			tvAchieveTime.setText("完成时间:"+trade.getAchieve_time().toString());
-			iv.setBackgroundResource(R.drawable.mydefault);
+//			iv.setBackgroundResource(R.drawable.mydefault);
+			
+			imageLoader.displayImage(
+					Constants.IMAGE_PATH
+							+ trade.getImage(), iv, options);
 		}
 		System.out.println("viewlayout:"+arg1.getId());
 		return arg1;

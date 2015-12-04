@@ -32,6 +32,10 @@ public class Order implements Serializable {
 	private String deliverer_gps;
 	private String deliverer_phone;
 	private String deliverer_account;
+	// 订单的图片
+	private String image;
+
+	
 
 	// 订单的四种状态
 	public static final String PUBLISH = "已发布";
@@ -48,8 +52,8 @@ public class Order implements Serializable {
 	public String toJSONString() {
 		JSONObject jsonObject = new JSONObject();
 		try {
-			jsonObject.put("book_time", getBook_time());
-			jsonObject.put("achieve_time", getAchieve_time());
+			jsonObject.put("book_time", toJSONObject(getBook_time()));
+			jsonObject.put("achieve_time", toJSONObject(getAchieve_time()));
 			jsonObject.put("source", getSource());
 			jsonObject.put("destination", getDestination());
 			jsonObject.put("priority", getPriority());
@@ -72,6 +76,7 @@ public class Order implements Serializable {
 			jsonObject.put("deliverer_gps", getDeliverer_gps());
 			jsonObject.put("deliverer_phone", getDeliverer_phone());
 			jsonObject.put("deliverer_account", getDeliverer_account());
+			jsonObject.put("image", getImage());
 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -118,6 +123,7 @@ public class Order implements Serializable {
 			this.setDeliverer_gps(jsonObject.getString("deliverer_gps"));
 			this.setDeliverer_phone(jsonObject.getString("deliverer_phone"));
 			this.setDeliverer_account(jsonObject.getString("deliverer_account"));
+			this.setImage(jsonObject.getString("image"));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -316,6 +322,14 @@ public class Order implements Serializable {
 	public void setDeliverer_account(String deliverer_account) {
 		this.deliverer_account = deliverer_account;
 	}
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 
 	@SuppressWarnings("deprecation")
 	private Timestamp toTimestamp(String str) {
@@ -341,5 +355,25 @@ public class Order implements Serializable {
 			e.printStackTrace();
 		}
 		return timestamp;
+	}
+
+	@SuppressWarnings("deprecation")
+	private JSONObject toJSONObject(Timestamp timestamp) {
+		// TODO Auto-generated method stub
+		JSONObject jsonObject = new JSONObject();
+		try {
+			jsonObject.put("year", timestamp.getYear());
+			jsonObject.put("month", timestamp.getMonth());
+			jsonObject.put("day", timestamp.getDay());
+			jsonObject.put("hours", timestamp.getHours());
+			jsonObject.put("minutes", timestamp.getMinutes());
+			jsonObject.put("seconds", timestamp.getSeconds());
+			jsonObject.put("nanos", timestamp.getNanos());
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return jsonObject;
 	}
 }

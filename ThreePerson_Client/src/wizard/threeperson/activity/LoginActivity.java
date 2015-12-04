@@ -73,6 +73,7 @@ public class LoginActivity extends Activity {
 		System.out.println("ËÍ²ÍÏµÍ³¡ª¡ª¡ª¡ª>>µÇÂ½");
 		user.setUsername(etUsername.getText().toString());
 		user.setPassword(etPassword.getText().toString());
+		user.setRole("guest");
 		System.out.println(user.getPassword());
 		new LoginTask().execute(user);
 		//api.login(user);
@@ -88,8 +89,9 @@ public class LoginActivity extends Activity {
 		protected void onPostExecute(GuestUser user) {
 			super.onPostExecute(user);
 			Toast.makeText(LoginActivity.this, "µÇÂ½", 3000).show();
-			System.out.println("--->>"+user.getUsername());
+			System.out.println("address--->>"+user.getAddress());
 			App.getInstance().setUser(user);
+			App.getInstance().setShareXML(LoginActivity.this);
 			GuestHomePageActivity.launch(LoginActivity.this);
 			finish();
 		}

@@ -86,6 +86,8 @@
         </activity>
         <activity android:name="wizard.threeperson.activity.HomeActivity" >
         </activity>
+        <activity android:name="wizard.threeperson.activity.TimeLineActivity" >
+        </activity>
         <!-- 引导页和启动页 -->
          <activity android:name="wizard.threeperson.guidepage.Guide" >
         </activity>

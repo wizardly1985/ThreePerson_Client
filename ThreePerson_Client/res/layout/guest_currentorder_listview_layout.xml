@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFCC"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -14,7 +15,8 @@
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/tvPrice" />
 
         <TextView
             android:id="@+id/tvPrice"
@@ -28,9 +30,9 @@
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="35dp"
-            android:layout_toRightOf="@+id/tvPrice"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="16dp"
             android:text="订单状态" />
 
         <TextView
@@ -38,9 +40,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@+id/iv"
+            android:layout_centerHorizontal="true"
             android:text="菜单。。。。" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tvStatus"
+            android:layout_alignRight="@+id/tvStatus"
+            android:layout_below="@+id/tvStatus"
+            android:text="操作" />
+
     </RelativeLayout>
 
     <View

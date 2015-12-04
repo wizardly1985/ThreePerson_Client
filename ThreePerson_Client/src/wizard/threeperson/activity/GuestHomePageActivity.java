@@ -1,6 +1,7 @@
 package wizard.threeperson.activity;
 
 import wizard.threeperson.App;
+import wizard.threeperson.Constants;
 import wizard.threeperson.client.R;
 import wizard.threeperson.entity.GuestUser;
 import wizard.threeperson.views.RemoteImageView;
@@ -76,7 +77,7 @@ public class GuestHomePageActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				GusetChooseFoodActivity.launch(GuestHomePageActivity.this);
+				RestaurantNewFoodActivity.launch(GuestHomePageActivity.this);
 			}
 		});
 
@@ -98,28 +99,18 @@ public class GuestHomePageActivity extends Activity {
 			}
 		});
 		
-		btnNewFood= (RelativeLayout) findViewById(R.id.newFood);
+		btnNewFood= (RelativeLayout) findViewById(R.id.btnRestaurant);
 		btnNewFood.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				RestaurantNewFoodActivity.launch(GuestHomePageActivity.this);
+				RestaurantRegisterActivity.launch(GuestHomePageActivity.this);
 			}
 		});
 		
-		btnCheckMenu= (RelativeLayout) findViewById(R.id.checkMenu);
-		btnCheckMenu.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				RestaurantAllFoodActivity.launch(GuestHomePageActivity.this);
-			}
-		});
-
-		backIv.loadImage("http://10.0.2.2:8080/ThreePerson_Server/images/E-F-004.jpg");
-		headIv.loadImage("http://10.0.2.2:8080/ThreePerson_Server/images/95588.jpg");
+		backIv.loadImage(Constants.IMAGE_PATH+user.getHeadImage());
+		headIv.loadImage(Constants.IMAGE_PATH+user.getBackgroundImage());
 	}
 
 }

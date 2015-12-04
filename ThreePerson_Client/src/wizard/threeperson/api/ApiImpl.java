@@ -132,11 +132,17 @@ public class ApiImpl implements IApi {
 	}
 
 	@Override
-	public void publishOrder(String jsonString) {
+	public Boolean publishOrder(String jsonString) {
+		boolean flag = true;
 		String servletString = "PublishOrderServlet";
 		String servletPath = buildString(servletString);
 		String result = HttpUtils.sendPostMessage(servletPath,
 				jsonString);
+		System.out.println(result);
+		if(result.equals(new String("false"))){
+			flag = false;
+		}
+		return flag;
 	}
 
 	@Override

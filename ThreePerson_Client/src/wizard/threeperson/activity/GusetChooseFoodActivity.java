@@ -1,22 +1,5 @@
 package wizard.threeperson.activity;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-
-import wizard.threeperson.App;
-import wizard.threeperson.adapter.GuestChooseFoodAdapter;
-import wizard.threeperson.adapter.MenuAdapter;
-import wizard.threeperson.api.ApiImpl;
-import wizard.threeperson.client.R;
-import wizard.threeperson.entity.Food;
-import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -24,9 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,62 +17,94 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+
+import java.io.PrintStream;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import wizard.threeperson.App;
+import wizard.threeperson.adapter.GuestChooseFoodAdapter;
+import wizard.threeperson.adapter.GuestChooseFoodAdapter.FoodCallBack;
+import wizard.threeperson.adapter.MenuAdapter;
+import wizard.threeperson.adapter.MenuAdapter.MenuCallBack;
+import wizard.threeperson.api.ApiImpl;
+import wizard.threeperson.client.R;
+import wizard.threeperson.entity.Food;
+
+/**
+ * @author Ly
+ *
+ */
 public class GusetChooseFoodActivity extends Activity implements
-		OnRefreshListener<ListView> {
+		PullToRefreshBase.OnRefreshListener<ListView> {
 
-	PullToRefreshListView lv;
 	GuestChooseFoodAdapter adapter;
-	SlidingMenu slidingMenu;
-	ListView menuListView;
-	MenuAdapter menuAdapter;
-	protected ProgressDialog progressDialog;
-
-	TextView tvCost;
-	Button orderBtn;
-
-	FoodCallBack foodCallBack = new FoodCallBack();
-	MenuCallBack menuCallBack = new MenuCallBack();
 	ApiImpl api = (ApiImpl) App.getInstance().getApi();
+	FoodCallBack foodCallBack = new FoodCallBack();
+	PullToRefreshListView lv;
+	MenuAdapter menuAdapter;
+	MenuCallBack menuCallBack = new MenuCallBack();
+	ListView menuListView;
+	Button orderBtn;
+	protected ProgressDialog progressDialog;
+	SlidingMenu slidingMenu;
+	TextView tvCost;
 
-	public static void launch(Context context) {
-		Intent i = new Intent(context, GusetChooseFoodActivity.class);
-		context.startActivity(i);
-	}
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setTitle("选餐");
-		setContentView(R.layout.guest_choose_layout);
-
-		lv = (PullToRefreshListView) findViewById(R.id.lv);
-		lv.setRefreshingLabel("获取更多美食");
-		lv.setMode(Mode.BOTH);
-		lv.setOnRefreshListener(this);
-		adapter = new GuestChooseFoodAdapter(this, foodCallBack);
-		lv.setAdapter(adapter);
-		initView();
-		setupListViewListener();
-		loadSlidingMenu();
-
-		new GetDataTask().execute();
-
-	}
+	// public GusetChooseFoodActivity() {
+	// FoodCallBack localFoodCallBack = new FoodCallBack();
+	// this.foodCallBack = localFoodCallBack;
+	// MenuCallBack localMenuCallBack = new MenuCallBack();
+	// this.menuCallBack = localMenuCallBack;
+	// ApiImpl localApiImpl = (ApiImpl) App.getInstance().getApi();
+	// this.api = localApiImpl;
+	// }
 
 	private void initView() {
-		// TODO Auto-generated method stub
-		tvCost = (TextView) findViewById(R.id.tvCost);
-		orderBtn=(Button) findViewById(R.id.payBtn);
+
+		this.tvCost = (TextView) findViewById(R.id.tvCost);
+		this.orderBtn = (Button) findViewById(R.id.payBtn);
 		orderBtn.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				GuestAffirmOrderActivity.launch(GusetChooseFoodActivity.this);
 			}
 		});
+	}
+
+	public static void launch(Context paramContext) {
+		Intent localIntent = new Intent(paramContext,
+				GusetChooseFoodActivity.class);
+		paramContext.startActivity(localIntent);
+	}
+
+	private void loadSlidingMenu() {
+		SlidingMenu localSlidingMenu = new SlidingMenu(this);
+		this.slidingMenu = localSlidingMenu;
+		this.slidingMenu.setMode(0);
+		this.slidingMenu.setBehindOffsetRes(R.dimen.sliding_menu_offset);
+		this.slidingMenu.setTouchModeAbove(1);
+		this.slidingMenu.attachToActivity(this, 1);
+		this.slidingMenu.setMenu(R.layout.slidingmenu);
+		ListView localListView1 = (ListView) this.slidingMenu
+				.findViewById(R.id.listView1);
+		this.menuListView = localListView1;
+		MenuCallBack localMenuCallBack = this.menuCallBack;
+		MenuAdapter localMenuAdapter1 = MenuAdapter.getInstance(this,
+				localMenuCallBack);
+		this.menuAdapter = localMenuAdapter1;
+		ListView localListView2 = this.menuListView;
+		MenuAdapter localMenuAdapter2 = this.menuAdapter;
+		localListView2.setAdapter(localMenuAdapter2);
 	}
 
 	private void setupListViewListener() {
@@ -98,152 +113,141 @@ public class GusetChooseFoodActivity extends Activity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				//Item的点击事件
+				// TODO Auto-generated method stub
+
 			}
 		});
-
 	}
 
-	private void loadSlidingMenu() {
-		slidingMenu = new SlidingMenu(this);
-		slidingMenu.setMode(SlidingMenu.LEFT);
-		slidingMenu.setBehindOffsetRes(R.dimen.sliding_menu_offset);
-		slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
-		slidingMenu.setMenu(R.layout.slidingmenu);
-		menuListView = (ListView) slidingMenu.findViewById(R.id.listView1);
-		menuAdapter = MenuAdapter.getInstance(this, menuCallBack);
-		menuListView.setAdapter(menuAdapter);
+	protected void closeProgressDialog() {
+		if (this.progressDialog == null)
+			return;
+		this.progressDialog.dismiss();
 	}
 
-	/**
-	 * 下拉刷新时调用
-	 */
-	@Override
-	public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-		System.out.println("是不是刷新");
+	protected void onCreate(Bundle paramBundle) {
+		super.onCreate(paramBundle);
+		setTitle("ѡ��");
+		setContentView(R.layout.guest_choose_layout);
+		this.lv = (PullToRefreshListView) findViewById(R.id.lv);
+		this.lv.setRefreshingLabel("��ȡ������ʳ");
+		PullToRefreshBase.Mode localMode = PullToRefreshBase.Mode.BOTH;
+		lv.setMode(localMode);
+		this.lv.setOnRefreshListener(this);
+		adapter = new GuestChooseFoodAdapter(this, foodCallBack);
+		lv.setAdapter(adapter);
+		initView();
+		setupListViewListener();
+		loadSlidingMenu();
+		showProgressDialog();
 		new GetDataTask().execute();
-
+//		closeProgressDialog();
 	}
 
-	/**
-	 * @author Ly 内部类，异步从服务器读取数据
-	 *
-	 */
-	private class GetDataTask extends AsyncTask<Void, Void, Void> {
-		//
-		@Override
-		protected void onPreExecute() {
-			// TODO Auto-generated method stub
-			super.onPreExecute();
-			// showProgressDialog();
-		}
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			System.out.println("异步任务");
-
-			int from = 0;
-			from += adapter.getCount();
-			int scale = 5;
-			String string = api.chooseFood(from, scale);
-			JSONObject jsonObject;
-			try {
-				jsonObject = new JSONObject(string);
-
-				JSONArray jsonArray = jsonObject.getJSONArray("info");
-				for (int i = 0; i < jsonArray.length(); i++) {
-					Food f = new Food().fromJSONString(jsonArray.get(i)
-							.toString());
-					adapter.getFood(f);
-				}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
-		}
-
-		@SuppressWarnings("unused")
-		protected void onPostExecute(Void result) {
-			// closeProgressDialog();
-
-			adapter.notifyDataSetChanged();
-
-			// 当数据加载完成，需要调用onRefreshComplete.
-			lv.onRefreshComplete();
-			super.onPostExecute(result);
-		}
-	}
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		switch (keyCode) {
-		case KeyEvent.KEYCODE_MENU:
-			slidingMenu.toggle(true);
-			break;
-		default:
-			break;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
-
-	@SuppressLint("NewApi")
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main2, menu);
-
-		MenuItem actionItem = menu.add("Action Button");
-
-		actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		actionItem.setIcon(android.R.drawable.ic_menu_preferences);
-
+	@SuppressLint({ "NewApi" })
+	public boolean onCreateOptionsMenu(Menu paramMenu) {
+		// getMenuInflater().inflate(2131492865, paramMenu);
+		// MenuItem localMenuItem1 = paramMenu.add("Action Button");
+		// localMenuItem1.setShowAsAction(1);
+		// MenuItem localMenuItem2 = localMenuItem1.setIcon(17301577);
 		return true;
 	}
 
-	/**
-	 * @author Ly 回调
-	 *
-	 */
+	public boolean onKeyDown(int paramInt, KeyEvent paramKeyEvent) {
+		switch (paramInt) {
+		default:
+		case 82:
+		}
+		while (true) {
+			this.slidingMenu.toggle(true);
+			return super.onKeyDown(paramInt, paramKeyEvent);
+		}
+	}
+
+	public void onRefresh(PullToRefreshBase<ListView> paramPullToRefreshBase) {
+		System.out.println("�ǲ���ˢ��");
+		// GetDataTask localGetDataTask = new GetDataTask(null);
+		// Void[] arrayOfVoid = new Void[0];
+		// AsyncTask localAsyncTask = localGetDataTask.execute(arrayOfVoid);
+		new GetDataTask().execute();
+	}
+
+	protected void showProgressDialog() {
+		if ((!isFinishing()) && (this.progressDialog == null)) {
+			this.progressDialog = new ProgressDialog(this);
+		}
+		String str1 = getString(R.string.loadTitle);
+		progressDialog.setTitle(str1);
+		String str2 = getString(R.string.LoadContent);
+		progressDialog.setMessage(str2);
+		this.progressDialog.show();
+	}
+
 	class FoodCallBack implements GuestChooseFoodAdapter.FoodCallBack {
 
-		@Override
-		public void chooseFood(Food f, int n) {
-			System.out.println("点了" + n + "份" + f.getName());
-			menuAdapter.updateMenu(f, n);
-			menuAdapter.notifyDataSetChanged();
+		public void chooseFood(Food paramFood, int paramInt) {
+			PrintStream localPrintStream = System.out;
+			StringBuilder localStringBuilder = new StringBuilder("����").append(
+					paramInt).append("��");
+			String str1 = paramFood.getName();
+			String str2 = str1;
+			localPrintStream.println(str2);
+			GusetChooseFoodActivity.this.menuAdapter.updateMenu(paramFood,
+					paramInt);
+			GusetChooseFoodActivity.this.menuAdapter.notifyDataSetChanged();
+		}
+	}
+
+	private class GetDataTask extends AsyncTask<Void, Void, Void> {
+
+		protected Void doInBackground(Void[] paramArrayOfVoid) {
+			System.out.println("�첽����");
+			int i = GusetChooseFoodActivity.this.adapter.getCount();
+			int j = 0 + i;
+			String str1 = GusetChooseFoodActivity.this.api.chooseFood(j, 5);
+			try {
+				JSONArray localJSONArray = new JSONObject(str1)
+						.getJSONArray("info");
+				int k = 0;
+				while (true) {
+					int m = localJSONArray.length();
+					if (k >= m)
+						return null;
+					Food localFood1 = new Food();
+					String str2 = localJSONArray.get(k).toString();
+					Food localFood2 = localFood1.fromJSONString(str2);
+					GusetChooseFoodActivity.this.adapter.getFood(localFood2);
+					k += 1;
+				}
+			} catch (JSONException localJSONException) {
+				while (true)
+					localJSONException.printStackTrace();
+			}
+		}
+
+		protected void onPostExecute(Void paramVoid) {
+			GusetChooseFoodActivity.this.adapter.notifyDataSetChanged();
+			GusetChooseFoodActivity.this.lv.onRefreshComplete();
+			closeProgressDialog();
+			super.onPostExecute(paramVoid);
+		}
+
+		protected void onPreExecute() {
+			super.onPreExecute();
 		}
 	}
 
 	class MenuCallBack implements MenuAdapter.MenuCallBack {
 
-		@Override
-		public void totalCost(double cost) {
-			// TODO Auto-generated method stub
-			System.out.println("显示总价：" + String.valueOf(cost).toString());
-			tvCost.setText(String.valueOf(cost).toString());
+		public void totalCost(double paramDouble) {
+			PrintStream localPrintStream = System.out;
+			StringBuilder localStringBuilder = new StringBuilder("��ʾ�ܼۣ�");
+			String str1 = String.valueOf(paramDouble).toString();
+			String str2 = str1;
+			localPrintStream.println(str2);
+			TextView localTextView = GusetChooseFoodActivity.this.tvCost;
+			String str3 = String.valueOf(paramDouble).toString();
+			localTextView.setText(str3);
 		}
-
 	}
-
-	/**
-	 * 显示
-	 */
-	protected void showProgressDialog() {
-		if ((!isFinishing()) && (this.progressDialog == null)) {
-			this.progressDialog = new ProgressDialog(this);
-		}
-		this.progressDialog.setTitle(getString(R.string.loadTitle));
-		this.progressDialog.setMessage(getString(R.string.LoadContent));
-		this.progressDialog.show();
-	}
-
-	/**
-	 * 关闭
-	 */
-	protected void closeProgressDialog() {
-		if (this.progressDialog != null)
-			this.progressDialog.dismiss();
-	}
-
 }

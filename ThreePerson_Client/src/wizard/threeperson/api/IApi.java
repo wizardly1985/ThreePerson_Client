@@ -74,7 +74,7 @@ public interface IApi {
 	 * 食客提交一个订单
 	 * @param user
 	 */
-	public void publishOrder(String jsonString);
+	public Boolean publishOrder(String jsonString);
 	
 	/**
 	 * 配送员接受一个订单

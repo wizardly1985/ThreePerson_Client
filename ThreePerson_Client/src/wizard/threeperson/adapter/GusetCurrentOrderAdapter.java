@@ -3,6 +3,14 @@ package wizard.threeperson.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
+import wizard.threeperson.Constants;
 import wizard.threeperson.client.R;
 import wizard.threeperson.entity.Order;
 import wizard.threeperson.entity.Trade;
@@ -20,9 +28,27 @@ public class GusetCurrentOrderAdapter extends BaseAdapter {
 	private Context mContext;
 	private List<Order> orders= new ArrayList<Order>();
 
+	DisplayImageOptions options;
+	protected ImageLoader imageLoader = ImageLoader.getInstance();
+	
 	public GusetCurrentOrderAdapter(Context mContext) {
 		super();
 		this.mContext = mContext;
+		
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+				mContext).threadPriority(Thread.NORM_PRIORITY - 2)
+				.denyCacheImageMultipleSizesInMemory()
+				.discCacheFileNameGenerator(new Md5FileNameGenerator())
+				.tasksProcessingOrder(QueueProcessingType.LIFO).enableLogging() 
+				.build();
+		// Initialize ImageLoader with configuration.
+		ImageLoader.getInstance().init(config);
+		options = new DisplayImageOptions.Builder()
+				.showStubImage(R.drawable.mydefault)
+				.showImageForEmptyUri(R.drawable.mydefault)
+				.showImageOnFail(R.drawable.mydefault).cacheInMemory()
+				.cacheOnDisc().displayer(new RoundedBitmapDisplayer(20))
+				.build();
 	}
 
 	@Override
@@ -64,7 +90,9 @@ public class GusetCurrentOrderAdapter extends BaseAdapter {
 			tvRestPhone.setText("电话:" + order.getRestaurant_phone());
 			tvDeliverer.setText("配送员:" + order.getDeliverer_name()+"      "+"电话:"+order.getDeliverer_phone());
 			
-			iv.setBackgroundResource(R.drawable.mydefault);
+//			iv.loadImage(Constants.IMAGE_PATH+order.getImage());
+			imageLoader.displayImage(
+					Constants.IMAGE_PATH+order.getImage(), iv, options);
 		}
 		return arg1;
 	}

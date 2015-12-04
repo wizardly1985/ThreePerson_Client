@@ -11,6 +11,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import wizard.threeperson.Constants;
 import wizard.threeperson.client.R;
 import wizard.threeperson.views.RemoteImageView;
 import android.app.Activity;
@@ -91,7 +92,7 @@ public class RestaurantNewFoodActivity extends Activity {
 						e.printStackTrace();
 					}
 					client.post(
-							"http://10.0.2.2:8080/ThreePerson_Server/servlet/NewFoodWebServlet",
+							Constants.SERVLET_PATH+"NewFoodWebServlet",
 							params, new AsyncHttpResponseHandler() {
 
 								@Override
